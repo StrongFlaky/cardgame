@@ -19,32 +19,45 @@ public class Game {
 
       deck.dealCards(player1, player2);
 
-      int result = player1.getCards().get(0).compare(player2.getCards().get(0));
+      int numberOfRounds = 0;
 
-      while (player1.getCards().size() > 0 && player2.getCards().size() > 0) {
+      while (numberOfRounds++ < 10) {
+
+         System.out.println("---------------");
+         System.out.println(player1.getCards());
+         System.out.println(player2.getCards());
+
+         Card player1TopCard = player1.getTopCard();
+         Card player2TopCard = player2.getTopCard();
+
+         int result = player1TopCard.compare(player2TopCard);
+
          if (result < 0) {
-            player2.addCardToBottom(player1.getTopCard());
-            player2.addCardToBottom(player2.getTopCard());
-
+            player2.addCardToBottom(player1TopCard);
+            player2.addCardToBottom(player2TopCard);
          }
-         else if (result == 0) {
-            player1.addCardToBottom(player1.getTopCard());
-            player2.addCardToBottom(player2.getTopCard());
+         else if (result > 0) {
+            player1.addCardToBottom(player1TopCard);
+            player1.addCardToBottom(player2TopCard);
          }
          else {
-            player1.addCardToBottom(player1.getTopCard());
-            player1.addCardToBottom(player2.getTopCard());
+            player1.addCardToBottom(player1TopCard);
+            player2.addCardToBottom(player2TopCard);
          }
       }
 
-      if (player2.getCards().size() > 0) {
+      System.out.println("Winning hand ---------------");
+      System.out.println(player1.getCards());
+      System.out.println(player2.getCards());
+
+      if (player2.getCards().size() > player1.getCards().size()) {
          return player2;
       }
-      else if (player1.getCards().size() > 0) {
+      else if (player1.getCards().size() > player2.getCards().size()) {
          return player1;
       }
       else {
-         throw new IllegalStateException("No winner");
+         return null;
       }
    }
 
@@ -53,6 +66,12 @@ public class Game {
       Game game = new Game();
       Player winner = game.play();
 
-      System.out.println(winner);
+      System.out.println("!!!!!!!!!!!!!!!!!!!!!");
+      if (winner != null) {
+         System.out.println("Winner is " + winner);
+      }
+      else {
+         System.out.println("No winner");
+      }
    }
 }

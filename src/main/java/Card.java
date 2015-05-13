@@ -1,4 +1,4 @@
-public class Card {
+public class Card extends Object {
 
    private Rank rank;
    private Suite suite;
@@ -12,5 +12,11 @@ public class Card {
    public int compare(Card otherCard) {
 
       return rank.ordinal() - otherCard.rank.ordinal();
+   }
+
+   @Override
+   public String toString() {
+
+      return rank.name() + " " + suite.name();
    }
 }

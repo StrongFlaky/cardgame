@@ -10,5 +10,7 @@ public class CardTest {
       Card kingOfDiamonds = new Card(Rank.king, Suite.diamonds);
 
       Assert.assertTrue(aceOfHearts.compare(kingOfDiamonds) < 0);
+      Assert.assertTrue(kingOfDiamonds.compare(aceOfHearts) > 0);
+      Assert.assertTrue(kingOfDiamonds.compare(kingOfDiamonds) == 0);
    }
 }
